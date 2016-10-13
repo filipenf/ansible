@@ -1,5 +1,6 @@
 %define name ansible
 %define ansible_version $VERSION
+%define __os_install_post    %{nil}
 
 %if 0%{?rhel} == 5
 %define __python /usr/bin/python26
@@ -63,7 +64,7 @@ Requires: python-six
 %endif
 
 # SuSE/openSuSE
-%if 0%{?suse_version} 
+%if 0%{?suse_version}
 BuildRequires: python-devel
 BuildRequires: python-setuptools
 Requires: python-paramiko
@@ -92,7 +93,7 @@ are transferred to managed machines automatically.
 %{__python} setup.py build
 
 %install
-%{__python} setup.py install -O1 --prefix=%{_prefix} --root=%{buildroot}
+%{__python} setup.py install --no-compile --prefix=%{_prefix} --root=%{buildroot}
 
 # Amazon Linux doesn't install to dist-packages but python_sitelib expands to
 # that location and the python interpreter expects things to be there.
